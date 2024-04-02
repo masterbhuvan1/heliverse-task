@@ -1,0 +1,184 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Navbar from "@/components/NavBar";
+import Footer from "@/components/Footer";
+import UserCard from "@/components/UserCard";
+import { Backend_URL } from "../utils/constants";
+const loader = async () => {
+  let img = "default.jpg";
+  console.log("called");
+  let name = "";
+  let id = "";
+  // console.info("cookie", cookieData, document.cookie.jwt);
+  const configuration = {
+    method: "post",
+    url: `${Backend_URL}/api/v1/users/isLoggedIn`,
+    credentials: true,
+    withCredentials: true,
+  };
+  let user;
+  try {
+    const response = await axios(configuration);
+    console.info("called", response.data);
+    img = response.data.user.avatar || "default.jpg";
+    name = response.data.user.first_name;
+    // id = response.data.id;
+    id = response.data.user._id;
+    const data = {
+      hasCookie: true,
+      img,
+      name,
+      id,
+    };
+    console.info("datay", data);
+    return data;
+  } catch (error) {
+    return { hasCookie: false, img: "", name: "", id: "" };
+  }
+};
+const Home = () => {
+  const [users, setUsers] = useState([]);
+  const [filters, setFilters] = useState({
+    domain: [],
+    gender: [],
+    available: [],
+  });
+  const [result, setResult] = useState({});
+
+  const domainOptions = [
+    "Business Development",
+    "Finance",
+    "IT",
+    "Management",
+    "Marketing",
+    "UI Designing",
+    "Sales",
+  ];
+
+  const genderOptions = [
+    "Male",
+    "Female",
+    "Agender",
+    "Bigender",
+    "Polygender",
+    "Genderfluid",
+    "Genderqueer",
+    "Non-binary",
+  ];
+
+  const availableOptions = ["Available", "Not Available"];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await loader();
+      setResult(result);
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    fetchFilteredUsers();
+  }, [filters]);
+
+  const fetchFilteredUsers = async () => {
+    let query = `${Backend_URL}/api/v1/users?`;
+
+    Object.keys(filters).forEach((key) => {
+      filters[key].forEach((value, index) => {
+        if (value) {
+          if (key === "available") {
+            query += `available=${value === "Available"}&`;
+          } else {
+            query += `${key}=${value}&`;
+          }
+        }
+      });
+    });
+
+    try {
+      const response = await axios.get(query);
+      setUsers(response.data.data.data);
+    } catch (error) {
+      console.error("Error fetching filtered users:", error);
+    }
+  };
+
+  const handleFilterChange = (e, type) => {
+    const value = e.target.value;
+    const isChecked = e.target.checked;
+
+    setFilters((prevFilters) => {
+      if (isChecked) {
+        return { ...prevFilters, [type]: [...prevFilters[type], value] };
+      } else {
+        return {
+          ...prevFilters,
+          [type]: prevFilters[type].filter((item) => item !== value),
+        };
+      }
+    });
+  };
+
+  return (
+    <div className="text-white">
+      <Navbar data={result} />
+      <div className="container mx-auto p-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div>
+            <h3 className="font-bold mb-2">Domain</h3>
+            {domainOptions.map((option, index) => (
+              <div key={index}>
+                <label>
+                  <input
+                    type="checkbox"
+                    value={option}
+                    onChange={(e) => handleFilterChange(e, "domain")}
+                  />{" "}
+                  {option}
+                </label>
+              </div>
+            ))}
+          </div>
+          <div>
+            <h3 className="font-bold mb-2">Gender</h3>
+            {genderOptions.map((option, index) => (
+              <div key={index}>
+                <label>
+                  <input
+                    type="checkbox"
+                    value={option}
+                    onChange={(e) => handleFilterChange(e, "gender")}
+                  />{" "}
+                  {option}
+                </label>
+              </div>
+            ))}
+          </div>
+          <div>
+            <h3 className="font-bold mb-2">Availability</h3>
+            {availableOptions.map((option, index) => (
+              <div key={index}>
+                <label>
+                  <input
+                    type="checkbox"
+                    value={option}
+                    onChange={(e) => handleFilterChange(e, "available")}
+                  />{" "}
+                  {option}
+                </label>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {users.map((user, index) => (
+            <UserCard key={index} user={user} />
+          ))}
+        </div>
+      </div>
+      <Footer />
+    </div>
+  );
+};
+
+export default Home;
