@@ -98,6 +98,7 @@ const Home = () => {
     try {
       const response = await axios.get(query);
       setUsers(response.data.data.data);
+      console.log(response.data.data.data);
     } catch (error) {
       console.error("Error fetching filtered users:", error);
     }

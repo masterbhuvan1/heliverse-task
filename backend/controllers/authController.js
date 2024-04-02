@@ -24,7 +24,7 @@ const createSendToken = (user, statusCode, req, res) => {
       ),
       path: "/",
       httpOnly: true,
-      sameSite: "Lax",
+      // sameSite: "Lax",
       secure: false,
     })
 
