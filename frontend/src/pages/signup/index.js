@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/router";
 import { Backend_URL } from "../../utils/constants";
-// import Image from "next/image";
+
 const avatars = [
   "https://robohash.org/sintessequaerat.png?size=50x50&set=set1",
   "https://robohash.org/temporibusporrolaboriosam.png?size=50x50&set=set1",
@@ -29,7 +31,6 @@ const domainOptions = [
 ];
 
 const SignupForm = () => {
-  // State for form data
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -41,7 +42,8 @@ const SignupForm = () => {
     role: "",
   });
 
-  // Handle form field changes
+  const router = useRouter();
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prevFormData) => ({
@@ -50,7 +52,6 @@ const SignupForm = () => {
     }));
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -74,13 +75,26 @@ const SignupForm = () => {
     }
   };
 
+  const goBack = () => {
+    router.push("/");
+  };
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-800">
       <form
         onSubmit={handleSubmit}
         className="max-w-md w-full space-y-4 bg-gray-700 p-6 rounded-lg"
       >
-        <div className="text-center text-2xl font-bold text-white">Sign Up</div>
+        <div className="flex justify-between items-center">
+          <h2 className="text-center text-2xl font-bold text-white">Sign Up</h2>
+          <button
+            type="button"
+            onClick={goBack}
+            className="text-white text-2xl hover:text-gray-400 focus:outline-none"
+          >
+            &times;
+          </button>
+        </div>
 
         <div className="flex flex-wrap justify-between">
           <input
@@ -110,7 +124,6 @@ const SignupForm = () => {
           className="w-full p-2 rounded bg-white text-gray-900 mb-2"
         />
 
-        {/* Avatar selection */}
         <div className="flex flex-wrap justify-between items-center">
           <select
             name="domain"
