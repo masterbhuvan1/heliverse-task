@@ -12,7 +12,7 @@ const loader = async () => {
   // console.info("cookie", cookieData, document.cookie.jwt);
   const configuration = {
     method: "post",
-    url: `${Backend_URL}/api/v1/users/isLoggedIn`,
+    url: `${Backend_URL}/api/users/isLoggedIn`,
     credentials: true,
     withCredentials: true,
   };
@@ -83,7 +83,7 @@ const Home = () => {
 
   const fetchFilteredUsers = async () => {
     setLoading(true);
-    let query = `${Backend_URL}/api/v1/users?page=${currentPage}&limit=20`;
+    let query = `${Backend_URL}/api/users?page=${currentPage}&limit=20`;
 
     Object.keys(filters).forEach((key) => {
       filters[key].forEach((value) => {

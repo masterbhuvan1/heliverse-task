@@ -66,8 +66,8 @@ app.use(function (req, res, next) {
 
 app.use(express.static(`${__dirname}/public`));
 
-app.use(`/api/v1/users`, userRouter);
-app.use("/api/teams", teamRoutes);
+app.use(`/api/users`, userRouter);
+app.use("/api/team", teamRoutes);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

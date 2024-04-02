@@ -23,7 +23,7 @@ const LoginPage = () => {
     try {
       // Make a POST request to the login API endpoint
       const response = await axios.post(
-        `${Backend_URL}/api/v1/users/login`,
+        `${Backend_URL}/api/users/login`,
         {
           first_name,
           last_name,

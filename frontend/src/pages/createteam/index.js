@@ -29,7 +29,7 @@ const loader = async () => {
   // console.info("cookie", cookieData, document.cookie.jwt);
   const configuration = {
     method: "post",
-    url: `${Backend_URL}/api/v1/users/isLoggedIn`,
+    url: `${Backend_URL}/api/users/isLoggedIn`,
     credentials: true,
     withCredentials: true,
   };
@@ -144,7 +144,7 @@ const CreateTeam = () => {
     const created_by = result.id;
 
     try {
-      const response = await axios.post(`${Backend_URL}/api/teams/createTeam`, {
+      const response = await axios.post(`${Backend_URL}/api/team/createTeam`, {
         team_name: teamName,
         description: description,
         members: selectedUsers,
@@ -257,7 +257,7 @@ const CreateTeam = () => {
 async function fetchUsers(domain, page = 1) {
   try {
     const response = await axios.get(
-      `${Backend_URL}/api/v1/users/?domain=${domain}&available=true&page=${page}&teamId=null`
+      `${Backend_URL}/api/users/?domain=${domain}&available=true&page=${page}&teamId=null`
     );
     return response.data.data.data; // Adjust based on your actual API response structure
   } catch (error) {

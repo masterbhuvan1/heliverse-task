@@ -9,9 +9,7 @@ const TeamCard = ({ team }) => {
     // Function to fetch user details
     const fetchUserDetails = async (userId) => {
       try {
-        const response = await axios.get(
-          `${Backend_URL}/api/v1/users/${userId}`
-        );
+        const response = await axios.get(`${Backend_URL}/api/users/${userId}`);
         return response.data; // Adjust this based on your API response structure
       } catch (error) {
         console.error(`Failed to fetch user details for ID ${userId}:`, error);

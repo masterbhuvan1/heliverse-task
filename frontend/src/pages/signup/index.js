@@ -56,7 +56,7 @@ const SignupForm = () => {
 
     try {
       // Make the POST request to the signup endpoint
-      const response = await axios.post(`${Backend_URL}/api/v1/users/signup`, {
+      const response = await axios.post(`${Backend_URL}/api/users/signup`, {
         firstName: formData.firstName,
         lastName: formData.lastName,
         email: formData.email,

@@ -9,7 +9,7 @@ import { Backend_URL } from "../../utils/constants";
 const loader = async () => {
   const configuration = {
     method: "post",
-    url: `${Backend_URL}/api/v1/users/isLoggedIn`,
+    url: `${Backend_URL}/api/users/isLoggedIn`,
     credentials: true,
     withCredentials: true,
   };
@@ -52,7 +52,7 @@ const TeamsDisplay = () => {
   const fetchTeams = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get(`${Backend_URL}/api/teams`, {
+      const response = await axios.get(`${Backend_URL}/api/team`, {
         params: { page: currentPage, limit: 9 }, // Adjust limit as per your requirement
       });
       setTeams(response.data.data.data);

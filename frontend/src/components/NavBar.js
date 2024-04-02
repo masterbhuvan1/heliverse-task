@@ -13,7 +13,7 @@ function Navbar({ data }) {
     try {
       await axios({
         method: "get",
-        url: `${Backend_URL}/api/v1/users/logout`,
+        url: `${Backend_URL}/api/users/logout`,
         withCredentials: true,
       });
       localStorage.removeItem("user");
