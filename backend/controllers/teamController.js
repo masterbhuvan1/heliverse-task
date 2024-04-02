@@ -40,7 +40,7 @@ exports.createTeam = catchAsync(async (req, res, next) => {
   });
 });
 exports.displayTeam = catchAsync(async (req, res, next) => {
-  const teamId = req.params.id; // Assuming the ID is passed as a URL parameter
+  const teamId = req.params.id;
 
   if (!mongoose.Types.ObjectId.isValid(teamId)) {
     return res.status(400).send({ message: "Invalid team ID." });
@@ -48,7 +48,7 @@ exports.displayTeam = catchAsync(async (req, res, next) => {
 
   const team = await Team.findById(teamId).populate({
     path: "members",
-    select: "first_name last_name email domain", // Adjust according to your User schema
+    select: "first_name last_name email domain",
   });
 
   if (!team) {

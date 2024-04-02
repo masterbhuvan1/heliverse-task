@@ -1,4 +1,3 @@
-// utils.js
 const filterObj = (obj, ...allowedFields) => {
   const filteredObj = {};
   Object.keys(obj).forEach((key) => {

@@ -21,7 +21,6 @@ const LoginPage = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Make a POST request to the login API endpoint
       const response = await axios.post(
         `${Backend_URL}/api/users/login`,
         {
@@ -40,11 +39,8 @@ const LoginPage = () => {
 
       console.log("Login successful", response.data);
       router.push("/");
-
-      // Handle successful login here (e.g., redirecting to another page or storing the login token)
     } catch (error) {
       console.error("Login failed", error.response.data);
-      // Handle login failure here (e.g., displaying an error message)
     }
   };
 

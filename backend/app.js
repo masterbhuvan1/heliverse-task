@@ -1,6 +1,5 @@
 const express = require("express");
 
-// var cookieParser = require("cookie-parser");
 const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
@@ -23,8 +22,6 @@ app.use(helmet());
 app.use(bodyparser.urlencoded({ extended: false }));
 
 const corsOptions = {
-  // origin: "https://natours-alpha-nine.vercel.app",
-  // origin: "*", // Allow requests from any origin
   origin: "https://heliverse-task-ruddy.vercel.app",
   credentials: true,
   optionSuccessStatus: 200,

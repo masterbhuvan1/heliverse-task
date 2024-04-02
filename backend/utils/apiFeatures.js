@@ -9,9 +9,8 @@ class APIFeatures {
     const excludedFields = ["page", "sort", "limit", "fields"];
     excludedFields.forEach((el) => delete queryObj[el]);
 
-    // Handle teamId=null
     if (queryObj.teamId === "null") {
-      queryObj.teamId = null; // Convert to null type for accurate querying
+      queryObj.teamId = null;
     }
 
     let queryStr = JSON.stringify(queryObj);

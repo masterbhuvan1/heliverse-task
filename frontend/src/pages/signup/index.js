@@ -35,8 +35,8 @@ const SignupForm = () => {
     lastName: "",
     email: "",
     gender: "",
-    domain: domainOptions[0], // Default to the first domain option
-    avatar: avatars[0], // Default to the first avatar
+    domain: domainOptions[0],
+    avatar: avatars[0],
     available: false,
     role: "",
   });
@@ -55,7 +55,6 @@ const SignupForm = () => {
     e.preventDefault();
 
     try {
-      // Make the POST request to the signup endpoint
       const response = await axios.post(`${Backend_URL}/api/users/signup`, {
         firstName: formData.firstName,
         lastName: formData.lastName,
@@ -67,11 +66,9 @@ const SignupForm = () => {
         role: formData.role,
       });
 
-      // Handle response data or success here
       console.log(response.data);
       alert("Signup successful!");
     } catch (error) {
-      // Handle errors here, e.g., display an error message
       console.error("Signup failed:", error.response.data);
       alert("Signup failed. Please try again.");
     }
@@ -84,7 +81,7 @@ const SignupForm = () => {
         className="max-w-md w-full space-y-4 bg-gray-700 p-6 rounded-lg"
       >
         <div className="text-center text-2xl font-bold text-white">Sign Up</div>
-        {/* Input fields */}
+
         <input
           type="text"
           name="firstName"
@@ -143,7 +140,7 @@ const SignupForm = () => {
             </option>
           ))}
         </select>
-        {/* Availability checkbox */}
+
         <label className="block">
           <input
             type="checkbox"
@@ -154,7 +151,7 @@ const SignupForm = () => {
           />
           <span className="text-white">Available</span>
         </label>
-        {/* Submit button */}
+
         <button
           type="submit"
           className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-400"

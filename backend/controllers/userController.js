@@ -3,14 +3,13 @@ const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const factory = require("./handlerFactory");
-const { filterObj } = require("../utils/filterObj"); // Adjust the path accordingly
+const { filterObj } = require("../utils/filterObj");
 
 exports.getMe = (req, res, next) => {
   req.params.id = req.user.id;
   next();
 };
 exports.updateMe = catchAsync(async (req, res, next) => {
-  // 1) Create error if user POSTs password data
   console.log(req.body, "updateMe");
   if (req.body.password || req.body.passwordConfirm) {
     return next(
@@ -20,7 +19,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
       )
     );
   }
-  // 2) Filtered out unwanted fields names that are not allowed to be updated
+
   const filteredBody = filterObj(req.body, "name", "email");
   const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
     new: true,

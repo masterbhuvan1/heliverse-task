@@ -28,7 +28,7 @@ const teamSchema = new mongoose.Schema(
       default: true,
     },
   },
-  { timestamps: true } // Include creation and update timestamps
+  { timestamps: true }
 );
 
 const Team = mongoose.model("team", teamSchema);

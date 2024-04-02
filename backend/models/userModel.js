@@ -68,7 +68,7 @@ const userSchema = new mongoose.Schema(
       select: false,
     },
     teamId: {
-      type: mongoose.Schema.Types.ObjectId, // Assuming teamId references another document
+      type: mongoose.Schema.Types.ObjectId,
       default: null,
     },
   },

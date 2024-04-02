@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useRouter } from "next/router"; // Ensure you're using Next.js router if you're in a Next.js project
+import { useRouter } from "next/router"; 
 import Navbar from "../../components/NavBar";
 
 import TeamCard from "../../components/teamCard";
@@ -53,7 +53,7 @@ const TeamsDisplay = () => {
     setIsLoading(true);
     try {
       const response = await axios.get(`${Backend_URL}/api/team`, {
-        params: { page: currentPage, limit: 9 }, // Adjust limit as per your requirement
+        params: { page: currentPage, limit: 9 }, 
       });
       setTeams(response.data.data.data);
       setIsLoading(false);

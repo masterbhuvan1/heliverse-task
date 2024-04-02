@@ -26,7 +26,7 @@ const loader = async () => {
   console.log("called");
   let name = "";
   let id = "";
-  // console.info("cookie", cookieData, document.cookie.jwt);
+
   const configuration = {
     method: "post",
     url: `${Backend_URL}/api/users/isLoggedIn`,
@@ -70,11 +70,11 @@ const CreateTeam = () => {
     fetchUsers(selectedDomain, currentPage)
       .then((fetchedUsers) => {
         if (isNewDomain || currentPage === 1) {
-          setUsers(fetchedUsers); // Sets users for a new domain or resets on the first page
+          setUsers(fetchedUsers);
         } else {
-          setUsers((prevUsers) => [...prevUsers, ...fetchedUsers]); // Appends users for additional pages of the same domain
+          setUsers((prevUsers) => [...prevUsers, ...fetchedUsers]);
         }
-        setLastFetchedDomain(selectedDomain); // Update the last fetched domain
+        setLastFetchedDomain(selectedDomain);
       })
       .catch(console.error);
   }, [selectedDomain, currentPage]);
@@ -86,7 +86,7 @@ const CreateTeam = () => {
       if (!result.hasCookie) {
         router.push("/login");
       }
-      // Assuming you want to do something with the result
+
       console.log(result);
     };
 
@@ -102,14 +102,13 @@ const CreateTeam = () => {
         (domain) => domain !== user.domain
       );
       setCurrentPage(1);
-      setDomainOptions(newDomainOptions); // Updates domain options after selection
+      setDomainOptions(newDomainOptions);
 
-      // Automatically select the next domain if available
       if (newDomainOptions.length > 0) {
         setSelectedDomain(newDomainOptions[0]);
       } else {
         setSelectedDomain("");
-        setUsers([]); // Clear users if no domains are left
+        setUsers([]);
       }
     }
   };
@@ -125,22 +124,20 @@ const CreateTeam = () => {
       const newSelectedUsers = selectedUsers.filter((_, i) => i !== index);
       setSelectedUsers(newSelectedUsers);
 
-      // Re-add the domain to options if it's no longer represented
       if (
         !newSelectedUsers.some((user) => user.domain === userToRemove.domain)
       ) {
         setDomainOptions((prevDomains) =>
           [...prevDomains, userToRemove.domain].sort()
         );
-        setSelectedDomain(userToRemove.domain); // Select the re-added domain
+        setSelectedDomain(userToRemove.domain);
       }
     }
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault(); // Prevent the default form submission behavior
+    event.preventDefault();
 
-    // Replace with the actual user ID who is creating the team
     const created_by = result.id;
 
     try {
@@ -152,10 +149,8 @@ const CreateTeam = () => {
       });
 
       console.log(response.data);
-      // Handle success, e.g., show a success message, redirect, etc.
     } catch (error) {
       console.error("Error creating team:", error.response.data);
-      // Handle error, e.g., show an error message
     }
   };
 
@@ -249,7 +244,6 @@ const CreateTeam = () => {
           </button>
         </form>
       </div>
-      {/* <Footer /> */}
     </>
   );
 };
@@ -259,10 +253,10 @@ async function fetchUsers(domain, page = 1) {
     const response = await axios.get(
       `${Backend_URL}/api/users/?domain=${domain}&available=true&page=${page}&teamId=null`
     );
-    return response.data.data.data; // Adjust based on your actual API response structure
+    return response.data.data.data;
   } catch (error) {
     console.error("Failed to fetch users", error);
-    return []; // Return an empty array in case of error
+    return [];
   }
 }
 
