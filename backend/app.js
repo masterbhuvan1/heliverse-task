@@ -25,7 +25,7 @@ app.use(bodyparser.urlencoded({ extended: false }));
 const corsOptions = {
   // origin: "https://natours-alpha-nine.vercel.app",
   // origin: "*", // Allow requests from any origin
-  origin: "http://localhost:3000",
+  origin: "https://heliverse-task-ruddy.vercel.app",
   credentials: true,
   optionSuccessStatus: 200,
 };
