@@ -144,15 +144,12 @@ const CreateTeam = () => {
     const created_by = result.id;
 
     try {
-      const response = await axios.post(
-        "http://localhost:3001/api/teams/createTeam",
-        {
-          team_name: teamName,
-          description: description,
-          members: selectedUsers,
-          created_by: created_by,
-        }
-      );
+      const response = await axios.post(`${Backend_URL}/api/teams/createTeam`, {
+        team_name: teamName,
+        description: description,
+        members: selectedUsers,
+        created_by: created_by,
+      });
 
       console.log(response.data);
       // Handle success, e.g., show a success message, redirect, etc.
