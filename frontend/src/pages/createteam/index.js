@@ -257,7 +257,7 @@ const CreateTeam = () => {
 async function fetchUsers(domain, page = 1) {
   try {
     const response = await axios.get(
-      `http://localhost:3001/api/v1/users/?domain=${domain}&available=true&page=${page}&teamId=null`
+      `${Backend_URL}/api/v1/users/?domain=${domain}&available=true&page=${page}&teamId=null`
     );
     return response.data.data.data; // Adjust based on your actual API response structure
   } catch (error) {
