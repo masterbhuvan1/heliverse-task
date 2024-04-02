@@ -187,7 +187,7 @@ const Home = () => {
             ))}
           </div>
         </div>
-        <div className="grid md:mt-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid mt-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {users.map((user, index) => (
             <UserCard key={index} user={user} />
           ))}

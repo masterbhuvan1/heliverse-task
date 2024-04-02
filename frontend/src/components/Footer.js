@@ -4,7 +4,7 @@ import React from "react";
 const Footer = () => {
   return (
     <footer className="bg-gray-800 mt-3 text-white py-8 bottom-0 relative">
-      <div className="container mx-auto flex items-center  px-4  justify-between  md:flex-row  ">
+      <div className="container mx-auto px-4 flex flex-col items-center md:flex-row">
         <div className="flex items-center mb-4 md:mb-0">
           <Image
             src="/logo-green-small.png"
@@ -14,7 +14,7 @@ const Footer = () => {
           />
           <span className="text-xl font-bold ml-2">TeamConnect</span>
         </div>
-        <div className=" flex justify-center items-center gap-3">
+        <div className="md:ml-auto">
           <ul className="flex flex-wrap justify-center items-center mb-4 md:mb-0">
             <li>
               <Link href="/">
@@ -26,7 +26,6 @@ const Footer = () => {
                 <div className="px-4 py-2 hover:underline">Download apps</div>
               </Link>
             </li>
-
             <li>
               <Link href="/">
                 <div className="px-4 py-2 hover:underline">Careers</div>
@@ -38,9 +37,9 @@ const Footer = () => {
               </Link>
             </li>
           </ul>
-          <p className="text-center md:text-left">
-            &copy; by Bhuvan Jain. All rights reserved.
-          </p>
+        </div>
+        <div className="text-center md:text-left">
+          <p>&copy; by Bhuvan Jain. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -1,10 +1,8 @@
-"use client";
-
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { redirect, useNavigation } from "react-router-dom";
+import { useRouter } from "next/router";
 import { Backend_URL } from "../../utils/constants";
 import axios from "axios";
+
 const LoginPage = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -29,7 +27,6 @@ const LoginPage = () => {
           email,
         },
         {
-          // Add this option to include credentials in the request
           withCredentials: true,
           headers: {
             "Content-Type": "application/json",
@@ -44,9 +41,25 @@ const LoginPage = () => {
     }
   };
 
+  const goBack = () => {
+    router.push("/");
+  };
+
   return (
     <div className="h-screen flex justify-center items-center bg-black">
-      <form onSubmit={onSubmit} className="p-10 w-1/4 bg-gray-800 rounded-lg">
+      <form
+        onSubmit={onSubmit}
+        className="p-4 sm:p-8 md:p-10 lg:p-12 xl:p-16 w-full sm:w-3/4 md:w-1/2 lg:w-1/3 bg-gray-800 rounded-lg"
+      >
+        <div className="flex justify-end mb-4">
+          <button
+            type="button"
+            onClick={goBack}
+            className="text-white text-2xl hover:text-gray-400 focus:outline-none"
+          >
+            &times;
+          </button>
+        </div>
         <h2 className="text-2xl font-bold text-white mb-6">Login</h2>
         <div className="mb-4">
           <label htmlFor="firstName" className="block text-white mb-2">

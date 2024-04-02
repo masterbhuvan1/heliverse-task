@@ -82,57 +82,64 @@ const SignupForm = () => {
       >
         <div className="text-center text-2xl font-bold text-white">Sign Up</div>
 
-        <input
-          type="text"
-          name="firstName"
-          value={formData.firstName}
-          onChange={handleChange}
-          placeholder="First Name"
-          className="block w-full p-2 rounded bg-white text-gray-900"
-        />
-        <input
-          type="text"
-          name="lastName"
-          value={formData.lastName}
-          onChange={handleChange}
-          placeholder="Last Name"
-          className="block w-full p-2 rounded bg-white text-gray-900"
-        />
+        <div className="flex flex-wrap justify-between">
+          <input
+            type="text"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
+            placeholder="First Name"
+            className="w-full md:w-44 p-2 rounded bg-white text-gray-900 mb-2 md:mr-2"
+          />
+          <input
+            type="text"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            placeholder="Last Name"
+            className="w-full md:w-44 p-2 rounded bg-white text-gray-900 mb-2 md:ml-2"
+          />
+        </div>
+
         <input
           type="email"
           name="email"
           value={formData.email}
           onChange={handleChange}
           placeholder="Email"
-          className="block w-full p-2 rounded bg-white text-gray-900"
+          className="w-full p-2 rounded bg-white text-gray-900 mb-2"
         />
+
         {/* Avatar selection */}
-        <select
-          name="domain"
-          value={formData.domain}
-          onChange={handleChange}
-          className="block w-full p-2 rounded bg-white text-gray-900"
-        >
-          {domainOptions.map((domain, index) => (
-            <option key={index} value={domain}>
-              {domain}
-            </option>
-          ))}
-        </select>
-        <div className="flex justify-center my-4">
-          <img
-            src={formData.avatar}
-            alt="Avatar"
-            width={50}
-            height={50}
-            className="rounded-full"
-          />
+        <div className="flex flex-wrap justify-between items-center">
+          <select
+            name="domain"
+            value={formData.domain}
+            onChange={handleChange}
+            className="w-full md:w-44 p-2 rounded bg-white text-gray-900 mb-2 md:mr-2"
+          >
+            {domainOptions.map((domain, index) => (
+              <option key={index} value={domain}>
+                {domain}
+              </option>
+            ))}
+          </select>
+          <div className="flex justify-center my-4">
+            <img
+              src={formData.avatar}
+              alt="Avatar"
+              width={50}
+              height={50}
+              className="rounded-full"
+            />
+          </div>
         </div>
+
         <select
           name="avatar"
           value={formData.avatar}
           onChange={handleChange}
-          className="block w-full p-2 rounded bg-white text-gray-900"
+          className="w-full p-2 rounded bg-white text-gray-900 mb-2"
         >
           {avatars.map((avatar, index) => (
             <option key={index} value={avatar}>

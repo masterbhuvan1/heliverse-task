@@ -65,6 +65,12 @@ function Navbar({ data }) {
             >
               CreateTeam
             </a>
+            <a
+              href="/signup"
+              className="py-3 rounded-lg px-3 text-gray-300 hover:bg-gray-500"
+            >
+              Sign Up
+            </a>
             {hasCookie ? (
               <>
                 <div href="/me" className="flex items-center py-5 px-3">
@@ -122,6 +128,9 @@ function Navbar({ data }) {
           </a>
           <a href="/createteam" className="py-5 text-lg">
             CreateTeam
+          </a>
+          <a href="/signup" className="py-5 text-lg">
+            Sign Up
           </a>
           {!hasCookie ? (
             <a href="/login" className="py-5 text-lg">
