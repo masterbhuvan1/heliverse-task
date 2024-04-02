@@ -56,19 +56,16 @@ const SignupForm = () => {
 
     try {
       // Make the POST request to the signup endpoint
-      const response = await axios.post(
-        "http://localhost:3001/api/v1/users/signup",
-        {
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
-          gender: formData.gender,
-          domain: formData.domain,
-          avatar: formData.avatar,
-          available: formData.available,
-          role: formData.role,
-        }
-      );
+      const response = await axios.post(`${Backend_URL}/api/v1/users/signup`, {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        gender: formData.gender,
+        domain: formData.domain,
+        avatar: formData.avatar,
+        available: formData.available,
+        role: formData.role,
+      });
 
       // Handle response data or success here
       console.log(response.data);

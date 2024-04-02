@@ -38,12 +38,21 @@ const loader = async () => {
 };
 const Home = () => {
   const [users, setUsers] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState({
     domain: [],
     gender: [],
     available: [],
   });
   const [result, setResult] = useState({});
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await loader();
+      setResult(result);
+    };
+    fetchData();
+  }, []);
+  const [loading, setLoading] = useState(false);
 
   const domainOptions = [
     "Business Development",
@@ -69,27 +78,20 @@ const Home = () => {
   const availableOptions = ["Available", "Not Available"];
 
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await loader();
-      setResult(result);
-    };
-    fetchData();
-  }, []);
-
-  useEffect(() => {
     fetchFilteredUsers();
-  }, [filters]);
+  }, [currentPage, filters]);
 
   const fetchFilteredUsers = async () => {
-    let query = `${Backend_URL}/api/v1/users?`;
+    setLoading(true);
+    let query = `${Backend_URL}/api/v1/users?page=${currentPage}&limit=20`;
 
     Object.keys(filters).forEach((key) => {
-      filters[key].forEach((value, index) => {
+      filters[key].forEach((value) => {
         if (value) {
           if (key === "available") {
-            query += `available=${value === "Available"}&`;
+            query += `&available=${value === "Available"}`;
           } else {
-            query += `${key}=${value}&`;
+            query += `&${key}=${value}`;
           }
         }
       });
@@ -97,10 +99,24 @@ const Home = () => {
 
     try {
       const response = await axios.get(query);
-      setUsers(response.data.data.data);
-      console.log(response.data.data.data);
+      setUsers(
+        currentPage === 1
+          ? response.data.data.data
+          : [...users, ...response.data.data.data]
+      );
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching filtered users:", error);
+      setLoading(false);
+    }
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
     }
   };
 
@@ -171,11 +187,30 @@ const Home = () => {
             ))}
           </div>
         </div>
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid md:mt-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {users.map((user, index) => (
             <UserCard key={index} user={user} />
           ))}
         </div>
+        <div className="flex justify-between mt-4">
+          {currentPage > 1 && (
+            <button
+              onClick={handlePreviousPage}
+              className="bg-[#55c57a] hover:bg-[#1aaa4a] text-white font-bold py-2 px-4 rounded"
+            >
+              Load Less
+            </button>
+          )}
+          {!loading && users.length > 0 && (
+            <button
+              onClick={handleNextPage}
+              className="bg-[#55c57a] hover:bg-[#1aaa4a] text-white font-bold py-2 px-4 rounded"
+            >
+              Load More
+            </button>
+          )}
+        </div>
+        {loading && <p>Loading...</p>}
       </div>
       <Footer />
     </div>
