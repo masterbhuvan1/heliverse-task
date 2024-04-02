@@ -249,7 +249,7 @@ const CreateTeam = () => {
           </button>
         </form>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

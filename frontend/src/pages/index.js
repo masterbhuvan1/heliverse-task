@@ -212,7 +212,7 @@ const Home = () => {
         </div>
         {loading && <p>Loading...</p>}
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
